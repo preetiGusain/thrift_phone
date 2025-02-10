@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_thrift/widgets/drawer_Icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -96,115 +97,138 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       //drawer
-      drawer: Drawer(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                color: const Color.fromARGB(66, 188, 184, 184),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      drawer: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.85,
+        child: Drawer(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  color: const Color.fromARGB(66, 188, 184, 184),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Thrift',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text(
+                            'PHONE',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.black,
+                              letterSpacing: 5.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Divider(height: 1, color: Color.fromARGB(255, 210, 207, 207)),
+              const SizedBox(height: 10),
+        
+              //Login/Signup
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 3, 81, 144),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Handle Login/Signup action
+                    },
+                    child: const Text(
+                      'Login/Signup',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 26),
+        
+              //Sell Your Phone
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.orange,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Sell your phone
+                    },
+                    child: const Text(
+                      'Sell Your Phone',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+        
+              const Spacer(),
+        
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 16,
+                  runSpacing: 16,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Thrift',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          'PHONE',
-                          style: TextStyle(
-                            fontSize: 8,
-                            color: Colors.black,
-                            letterSpacing: 5.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.close),
-                      color: Colors.black,
-                    ),
+                    drawerIcons(Icons.shopping_cart, 'How to Buy'),
+                    drawerIcons(Icons.handshake, 'How to Sell'),
+                    drawerIcons(Icons.info, 'About Us'),
+                    drawerIcons(Icons.question_answer, 'FAQs'),
+                    drawerIcons(Icons.security, 'Privacy Policy'), 
+                    drawerIcons(Icons.currency_exchange, 'Refund Policy'),
                   ],
                 ),
               ),
-            ),
-            const Divider(height: 1, color: Color.fromARGB(255, 210, 207, 207)),
-            const SizedBox(height: 10),
-
-            //Login/Signup
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 3, 81, 144),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Handle Login/Signup action
-                  },
-                  child: const Text(
-                    'Login/Signup',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 26),
-            //Sell Youe Phone
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.orange,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Sell your phone
-                  },
-                  child: const Text(
-                    'Sell Your Phone',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
 
