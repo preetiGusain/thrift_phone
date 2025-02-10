@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_thrift/widgets/action_buttons.dart';
 import 'package:phone_thrift/widgets/drawer_Icons.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -143,9 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const Divider(height: 1, color: Color.fromARGB(255, 210, 207, 207)),
+              const Divider(
+                  height: 1, color: Color.fromARGB(255, 210, 207, 207)),
               const SizedBox(height: 10),
-        
+
               //Login/Signup
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -177,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 26),
-        
+
               //Sell Your Phone
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -208,9 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-        
+
               const Spacer(),
-        
+
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Wrap(
@@ -222,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     drawerIcons(Icons.handshake, 'How to Sell'),
                     drawerIcons(Icons.info, 'About Us'),
                     drawerIcons(Icons.question_answer, 'FAQs'),
-                    drawerIcons(Icons.security, 'Privacy Policy'), 
+                    drawerIcons(Icons.security, 'Privacy Policy'),
                     drawerIcons(Icons.currency_exchange, 'Refund Policy'),
                   ],
                 ),
@@ -240,9 +242,11 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                height: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.transparent,
+                  border: Border.all(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -250,20 +254,62 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Icon(Icons.search, color: Colors.orange),
                     const SizedBox(width: 8),
                     const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Search phones with make, model',
-                          border: InputBorder.none,
+                      child: Center(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search phones with make, model...',
+                            hintStyle: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey,
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
+                    Container(
+                      height: 18,
+                      width: 2,
+                      color: Colors.black54,
+                      margin: const EdgeInsets.symmetric(horizontal: 0),
+                    ),
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.mic, color: Colors.grey),
+                      icon: const Icon(Icons.mic, color: Colors.black54),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
                     ),
                   ],
                 ),
               ),
+
+              //Action buttons
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                height: 75,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    const SizedBox(width: 2),
+                    actionButtons('Sell Used Phones', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('Buy Used Phones', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('Compare Prices', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('My Profile', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('My Listings', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('Services', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('Register your Store', () => {}),
+                    const SizedBox(width: 8),
+                    actionButtons('Get the App', () => {}),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              )
             ],
           ),
         ),
