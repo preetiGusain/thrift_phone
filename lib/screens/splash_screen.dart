@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: const Center(
           child: Text(
-            'Phone Thrift',
+            'Thrift Phone',
             style: TextStyle(
               fontSize: 34,
               fontWeight: FontWeight.w700,

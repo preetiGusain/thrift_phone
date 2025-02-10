@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phone_thrift/widgets/action_buttons.dart';
+import 'package:phone_thrift/widgets/banner_images.dart';
 import 'package:phone_thrift/widgets/drawer_Icons.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int activeIndex = 0;
+  final List<String> images = [
+    'lib/images/banner/banner1.png',
+    'lib/images/banner/banner2.png',
+    'lib/images/banner/banner3.png',
+    'lib/images/banner/banner4.png',
+    'lib/images/banner/banner5.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -309,7 +320,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(width: 8),
                   ],
                 ),
-              )
+              ),
+
+              //Banners
+              CarouselSlider.builder(
+                options: CarouselOptions(
+                  height: 200,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  autoPlayInterval: const Duration(seconds: 4),
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      activeIndex = index; // Sync activeIndex
+                    });
+                  },
+                ),
+                itemCount: images.length,
+                itemBuilder: (context, index, realIndex) {
+                  return buildImage(images[index], index);
+                },
+              ),
+              const SizedBox(height: 7),
+              // Page indicator
+              Center(
+                child: buildIndicator(activeIndex, images.length),
+              ),
             ],
           ),
         ),
