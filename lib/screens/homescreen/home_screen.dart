@@ -3,6 +3,7 @@ import 'package:phone_thrift/widgets/action_buttons.dart';
 import 'package:phone_thrift/widgets/banner_images.dart';
 import 'package:phone_thrift/widgets/drawer_Icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:phone_thrift/widgets/quick_links.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -344,6 +345,90 @@ class _HomeScreenState extends State<HomeScreen> {
               // Page indicator
               Center(
                 child: buildIndicator(activeIndex, images.length),
+              ),
+              const SizedBox(height: 7),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'What\'s on your mind?',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 130,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/buyUsedPhones.png',
+                              'Buy Used Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/sellUsedPhone.png',
+                              'Sell Used Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/comparePrices.png',
+                              'Compare Prices'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/myProfile.png',
+                              'My Profile'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/myListings.png',
+                              'My Listings'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/openStore.png',
+                              'Open Store'),
+                          const SizedBox(width: 2),
+                          quickLinks(
+                              'lib/images/quickLinks/services.png', 'Services'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/deviceHealth.png',
+                              'Device Health Check'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/battery.png',
+                              'Battery Health Check'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/simcard.png',
+                              'IMEI Verification'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/deviceDetails.png',
+                              'Device Details'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/dataWipe.png',
+                              'Data Wipe'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/warranty.png',
+                              'Under Warranty Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/premium.png',
+                              'Premium Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/newPhones.png',
+                              'Like New Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/refurbished.png',
+                              'Refurbished Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/verifiedPhones.png',
+                              'Verified Phones'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/negotiations.png',
+                              'My Negotiations'),
+                          const SizedBox(width: 2),
+                          quickLinks('lib/images/quickLinks/favorites.png',
+                              'My Favorites'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
