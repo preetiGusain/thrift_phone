@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     onPressed: () {
-                      // Handle Login/Signup action
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: const Text(
                       'Login/Signup',

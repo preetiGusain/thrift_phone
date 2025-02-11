@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_thrift/screens/login_screen.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -10,10 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Phone Thrift',
-      home: SplashScreen(),
+      home: const SplashScreen(),
+      routes: {
+        '/login': (context) => const LoginScreen(),
+      },
     );
   }
 }
