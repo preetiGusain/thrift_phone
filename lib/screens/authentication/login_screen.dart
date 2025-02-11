@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phone_thrift/screens/authentication/otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,6 +10,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isTermsAccepted = false;
+  String phoneNumber = '';
+  late TextEditingController phoneController;
+
+  @override
+  void initState() {
+    super.initState();
+    phoneController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-          
+
                 const SizedBox(height: 60),
                 // Title
                 const Center(
@@ -59,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 100),
                 const Center(
                   child: Column(
@@ -68,33 +83,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'Welcome',
                         style: TextStyle(
-                          fontSize: 26,
+                          fontSize: 30,
                           fontWeight: FontWeight.w900,
                           color: Color.fromARGB(255, 2, 53, 95),
                           letterSpacing: 4.0,
-                          height: 1,
+                          height: 2,
                         ),
                       ),
                       SizedBox(height: 2),
                       Text(
                         'Sign in to continue',
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                        style: TextStyle(fontSize: 16, color: Colors.black54),
                       ),
                     ],
                   ),
                 ),
-          
+
                 const SizedBox(height: 80),
-          
+
                 // Phone number label
                 const Text(
                   'Enter your phone number',
                   style: TextStyle(
                       fontSize: 12, fontWeight: FontWeight.w500, height: 0.5),
                 ),
-          
+
                 const SizedBox(height: 10),
-          
+
                 // Phone number input
                 Row(
                   children: [
@@ -104,31 +119,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 12),
                               child: Text(
                                 '+91',
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black),
                               ),
                             ),
-                            VerticalDivider(
+                            const VerticalDivider(
                               color: Colors.grey,
                               thickness: 1,
                               width: 1,
                             ),
                             Expanded(
                               child: TextField(
+                                controller: phoneController,
                                 maxLength: 10,
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Mobile Number',
                                   border: InputBorder.none,
                                   counterText: '',
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 12),
                                 ),
+                                onChanged: (value){
+                                  setState(() {
+                                    phoneNumber = value;
+                                  });
+                                },
                               ),
                             ),
                           ],
@@ -137,9 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-          
+
                 const SizedBox(height: 60),
-          
+
                 // Terms and conditions
                 Row(
                   children: [
@@ -168,18 +190,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-          
+
                 const SizedBox(height: 5),
-          
+
                 // Next button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: isTermsAccepted ? () {} : null,
+                    onPressed: (isTermsAccepted && phoneNumber.length == 10)
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OtpScreen(
+                                  phoneNumber: phoneNumber,
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isTermsAccepted
-                          ? const Color.fromARGB(255, 2, 53, 95)
-                          : Colors.grey, // Button color
+                      backgroundColor:
+                          (isTermsAccepted && phoneNumber.length == 10)
+                              ? const Color.fromARGB(255, 2, 53, 95)
+                              : Colors.grey, // Button color
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

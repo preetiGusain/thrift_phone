@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phone_thrift/screens/login_screen.dart';
+import 'package:phone_thrift/screens/authentication/login_screen.dart';
+import 'package:phone_thrift/screens/homescreen/home_screen.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Phone Thrift',
       home: const SplashScreen(),
       routes: {
+        '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
       },
     );
