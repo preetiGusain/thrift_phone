@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:phone_thrift/screens/authentication/otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -23,6 +24,43 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     phoneController.dispose();
     super.dispose();
+  }
+
+  void _sendOtp() async {
+    if (!isTermsAccepted || phoneNumber.length != 10) return;
+
+    String fullPhoneNumber = '+91$phoneNumber';
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: fullPhoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) {
+          // Auto-retrieval or instant verification logic can go here if needed.
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Verification failed: ${e.message}')),
+          );
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          // Navigate to OTP screen with the verification ID
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OtpScreen(
+                verificationId: verificationId, phoneNumber: '',
+              ),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // Handle timeout for auto-retrieval
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    }
   }
 
   @override
@@ -146,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 12),
                                 ),
-                                onChanged: (value){
+                                onChanged: (value) {
                                   setState(() {
                                     phoneNumber = value;
                                   });
@@ -198,16 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: (isTermsAccepted && phoneNumber.length == 10)
-                        ? () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => OtpScreen(
-                                  phoneNumber: phoneNumber,
-                                ),
-                              ),
-                            );
-                          }
+                        ? _sendOtp
                         : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
