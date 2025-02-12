@@ -106,7 +106,7 @@ class _OtpScreenState extends State<OtpScreen> {
       );
 
       // Navigate to home or the next screen
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamed(context, '/name');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error verifying OTP: ${e.toString()}')),

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:phone_thrift/screens/authentication/confirm_name_screen.dart';
 import 'package:phone_thrift/screens/authentication/login_screen.dart';
 import 'package:phone_thrift/screens/authentication/otp_screen.dart';
 import 'package:phone_thrift/screens/homescreen/home_screen.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/otp': (context) => const OtpScreen(verificationId: '', phoneNumber: '',),
+        '/name': (context) => ConfirmNameScreen(),
       },
     );
   }
