@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phone_thrift/widgets/authentication_scaffold.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -120,189 +121,71 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    print("Phone number: ${widget.phoneNumber}");
+    final String subtitletext = 'Please enter the 6-digit verification code sent to your mobile number +91-${widget.phoneNumber} via SMS';
+
+    return AuthenticationScaffold(
+      heading: 'Verify Mobile No.',
+      subtitle: subtitletext,
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // OTP input fields
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              6,
+              (index) => SizedBox(
+                width: 50,
+                child: TextField(
+                  controller: _otpControllers[index],
+                  maxLength: 1,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  decoration: const InputDecoration(
+                    counterText: '',
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) {
+                    // Move to next field when a digit is entered
+                    if (value.isNotEmpty && index < 5) {
+                      FocusScope.of(context).nextFocus();
+                    } else if (value.isEmpty && index > 0) {
+                      FocusScope.of(context).previousFocus();
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 60),
+
+          // Resend OTP
+          Row(
             children: [
-              // Back and Close buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+              const Text("Didn't receive OTP? "),
+              GestureDetector(
+                onTap: _resendOtp,
+                child: Text(
+                  remainingTime > 0
+                      ? 'Resend OTP in ${formatTime(remainingTime)}'
+                      : 'Resend OTP',
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        '/home',
-                        (route) => false,
-                      );
-                    },
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 60),
-
-              // Title
-              const Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Thrift',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.black,
-                        letterSpacing: 6.0,
-                        height: 0.5,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'PHONE',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        letterSpacing: 14.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 100),
-
-              // Subtitle
-              Center(
-                child: Column(
-                  children: [
-                    const Text(
-                      'Verify Mobile No.',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                        color: Color.fromARGB(255, 2, 53, 95),
-                        height: 2,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Please enter the 6-digit verification code sent to your mobile number +91-${widget.phoneNumber} via SMS',
-                      style:
-                          const TextStyle(fontSize: 14, color: Colors.black54),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 80),
-
-              // OTP input fields
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  6,
-                  (index) => SizedBox(
-                    width: 50,
-                    child: TextField(
-                      controller: _otpControllers[index],
-                      maxLength: 1,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      decoration: const InputDecoration(
-                        counterText: '',
-                        border: OutlineInputBorder(),
-                      ),
-                      onChanged: (value) {
-                        // Move to next field when a digit is entered
-                        if (value.isNotEmpty && index < 5) {
-                          FocusScope.of(context).nextFocus();
-                        } else if (value.isEmpty && index > 0) {
-                          FocusScope.of(context).previousFocus();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 60),
-
-              // Resend OTP
-              Row(
-                children: [
-                  const Text("Didn't receive OTP? "),
-                  GestureDetector(
-                    onTap: _resendOtp,
-                    child: Text(
-                      remainingTime > 0
-                          ? 'Resend OTP in ${formatTime(remainingTime)}'
-                          : 'Resend OTP',
-                      style: const TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 30),
-
-              // Verify OTP button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _verifyOtp,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 2, 53, 95),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: _isLoading
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Verify OTP',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ],
-                        ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
+      buttonText: 'Verify OTP',
+      onButtonPressed: _isLoading ? null : _verifyOtp,
     );
   }
 }
