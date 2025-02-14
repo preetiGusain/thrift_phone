@@ -10,13 +10,14 @@ Widget quickLinks(String imagePath, String label) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 40,
-            height: 40,
+            width: 60,
+            height: 60,
             child: Image.asset(
               imagePath,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
             child: Text(

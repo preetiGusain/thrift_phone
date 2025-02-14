@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:phone_thrift/widgets/action_buttons.dart';
 import 'package:phone_thrift/widgets/banner_images.dart';
+import 'package:phone_thrift/widgets/brands_icons.dart';
 import 'package:phone_thrift/widgets/drawer_Icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:phone_thrift/widgets/quick_links.dart';
+import 'package:phone_thrift/widgets/title_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,31 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         titleSpacing: 0,
-        title: const Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Thrift',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  'PHONE',
-                  style: TextStyle(
-                    fontSize: 8,
-                    color: Colors.black,
-                    letterSpacing: 5.0,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+        title: const ThriftTitle(),
         actions: [
           Row(
             children: [
@@ -112,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+
       //drawer
       drawer: SizedBox(
         width: MediaQuery.of(context).size.width * 0.85,
@@ -127,26 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Thrift',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Text(
-                            'PHONE',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                              letterSpacing: 5.0,
-                            ),
-                          ),
-                        ],
+                      const ThriftTitle(
+                        fontSize: 20,
+                        color: Colors.black,
                       ),
                       IconButton(
                         onPressed: () {
@@ -256,6 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //Search
               Container(
                 height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -350,6 +313,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: buildIndicator(activeIndex, images.length),
               ),
               const SizedBox(height: 7),
+
+              //What's on your mind?
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Column(
@@ -365,33 +330,33 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 130,
+                      height: 170,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/buyUsedPhones.png',
+                          quickLinks('lib/images/quickLinks/buy.png',
                               'Buy Used Phones'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/sellUsedPhone.png',
+                          quickLinks('lib/images/quickLinks/sell.png',
                               'Sell Used Phones'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/comparePrices.png',
+                          quickLinks('lib/images/quickLinks/compare.png',
                               'Compare Prices'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/myProfile.png',
+                          quickLinks('lib/images/quickLinks/profile.png',
                               'My Profile'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/myListings.png',
-                              'My Listings'),
+                          quickLinks(
+                              'lib/images/quickLinks/list.png', 'My Listings'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/openStore.png',
-                              'Open Store'),
+                          quickLinks(
+                              'lib/images/quickLinks/store.png', 'Open Store'),
                           const SizedBox(width: 2),
                           quickLinks(
                               'lib/images/quickLinks/services.png', 'Services'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/deviceHealth.png',
+                          quickLinks('lib/images/quickLinks/health.png',
                               'Device Health Check'),
                           const SizedBox(width: 2),
                           quickLinks('lib/images/quickLinks/battery.png',
@@ -400,11 +365,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           quickLinks('lib/images/quickLinks/simcard.png',
                               'IMEI Verification'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/deviceDetails.png',
+                          quickLinks('lib/images/quickLinks/details.png',
                               'Device Details'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/dataWipe.png',
-                              'Data Wipe'),
+                          quickLinks(
+                              'lib/images/quickLinks/data.png', 'Data Wipe'),
                           const SizedBox(width: 2),
                           quickLinks('lib/images/quickLinks/warranty.png',
                               'Under Warranty Phones'),
@@ -418,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           quickLinks('lib/images/quickLinks/refurbished.png',
                               'Refurbished Phones'),
                           const SizedBox(width: 2),
-                          quickLinks('lib/images/quickLinks/verifiedPhones.png',
+                          quickLinks('lib/images/quickLinks/verified.png',
                               'Verified Phones'),
                           const SizedBox(width: 2),
                           quickLinks('lib/images/quickLinks/negotiations.png',
@@ -426,6 +391,52 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(width: 2),
                           quickLinks('lib/images/quickLinks/favorites.png',
                               'My Favorites'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              //Brands
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Top brands',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          brandLogo('lib/images/brands/apple.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/xiaomi.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/samsung.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/vivo.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/realme.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/motorola.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/oppo.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/nokia.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/sony.png'),
+                          const SizedBox(width: 18),
+                          brandLogo('lib/images/brands/lg.png'),
                         ],
                       ),
                     ),
