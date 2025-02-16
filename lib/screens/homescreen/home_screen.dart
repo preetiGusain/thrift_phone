@@ -443,6 +443,81 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+
+              //Best deals
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Best deals in India',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0,
+                                  side: const BorderSide(color: Colors.grey),
+                                ),
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.swap_vert, color: Colors.black),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'Sort',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    SizedBox(width: 4),
+                                    Icon(Icons.expand_more,
+                                        color: Colors.black),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0,
+                                  side: const BorderSide(color: Colors.grey),
+                                ),
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.tune, color: Colors.black),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'Filters',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    SizedBox(width: 4),
+                                    Icon(Icons.expand_more,
+                                        color: Colors.black),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            
             ],
           ),
         ),
